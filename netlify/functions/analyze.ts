@@ -88,7 +88,7 @@ ${answerSummary}
 이 정보를 바탕으로 한국어로 개인 맞춤 정치 성향 분석을 제공해주세요.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-1.5-flash",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
