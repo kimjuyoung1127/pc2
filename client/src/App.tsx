@@ -17,7 +17,7 @@ function AppContent() {
 
   const analysisMutation = useMutation({
     mutationFn: async (data: { answers: QuizAnswer[]; demographics: UserDemographics }) => {
-      const response = await apiRequest("POST", "/api/analyze-political-orientation", data);
+      const response = await apiRequest("POST", "/.netlify/functions/analyze", data);
       return response.json();
     },
     onSuccess: (data: PoliticalOrientation) => {
