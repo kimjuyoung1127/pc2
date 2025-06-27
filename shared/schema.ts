@@ -32,7 +32,17 @@ export const politicalOrientationSchema = z.object({
   })),
 });
 
+export const shareableResultSchema = z.object({
+  id: z.string(),
+  orientation: z.string(),
+  progressivePercentage: z.number(),
+  moderatePercentage: z.number(),
+  conservativePercentage: z.number(),
+  createdAt: z.string(),
+});
+
 export type UserDemographics = z.infer<typeof userDemographicsSchema>;
 export type QuizAnswer = z.infer<typeof quizAnswerSchema>;
 export type QuizResultRequest = z.infer<typeof quizResultRequestSchema>;
 export type PoliticalOrientation = z.infer<typeof politicalOrientationSchema>;
+export type ShareableResult = z.infer<typeof shareableResultSchema>;

@@ -44,7 +44,7 @@ This is a full-stack web application that analyzes users' political orientation 
    - AI-generated political orientation analysis
    - Visual representation of results
    - Category-based breakdown
-   - Social sharing functionality
+   - Multiple sharing options: general sharing, KakaoTalk sharing, restart
 
 4. **Loading Screen** (`client/src/components/loading-screen.tsx`)
    - AI analysis progress indicator
@@ -83,6 +83,12 @@ This is a full-stack web application that analyzes users' political orientation 
 ### AI Integration
 - **Google Generative AI**: Political orientation analysis using Gemini model
 - **API Key**: Required via `GEMINI_API_KEY` or `GOOGLE_API_KEY` environment variable
+
+### Social Sharing
+- **KakaoTalk SDK**: Native Korean messaging app integration
+- **JavaScript SDK**: Version 2.7.2 loaded via CDN
+- **App Key Setup**: Requires Kakao Developer account and JavaScript key
+- **Configuration**: See `KAKAO_SETUP.md` for detailed setup instructions
 
 ### Database
 - **Neon Database**: Serverless PostgreSQL provider
@@ -128,3 +134,4 @@ Preferred communication style: Simple, everyday language.
 
 Changelog:
 - June 27, 2025. Initial setup
+- June 27, 2025. Added KakaoTalk sharing functionality with SDK integration

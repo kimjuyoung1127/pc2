@@ -1,4 +1,4 @@
-import { PieChart, Share2, RotateCcw, Wallet, Shield, Users, GraduationCap, Building, Leaf } from "lucide-react";
+import { PieChart, Share2, RotateCcw, Wallet, Shield, Users, GraduationCap, Building, Leaf, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -48,6 +48,44 @@ export default function Results({ results, onRestart }: ResultsProps) {
       const text = `나의 정치 성향: ${results.orientation}\n${window.location.origin}`;
       navigator.clipboard.writeText(text);
       alert('링크가 클립보드에 복사되었습니다!');
+    }
+  };
+
+  const handleKakaoShare = () => {
+    // Check if Kakao SDK is available
+    if (typeof window !== 'undefined' && (window as any).Kakao) {
+      const kakao = (window as any).Kakao;
+      
+      // Initialize if not already done
+      if (!kakao.isInitialized()) {
+        // Use a placeholder app key - user will need to replace with their own
+        kakao.init('YOUR_KAKAO_APP_KEY');
+      }
+
+      kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '🎯 정치 성향 밸런스 게임',
+          description: `나의 정치 성향: ${results.orientation}\n\n진보 ${results.progressivePercentage}% | 중도 ${results.moderatePercentage}% | 보수 ${results.conservativePercentage}%\n\n12가지 질문으로 알아보는 나의 정치적 성향!`,
+          imageUrl: 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=정치+성향+밸런스+게임',
+          link: {
+            mobileWebUrl: window.location.origin,
+            webUrl: window.location.origin,
+          },
+        },
+        buttons: [
+          {
+            title: '나도 테스트하기',
+            link: {
+              mobileWebUrl: window.location.origin,
+              webUrl: window.location.origin,
+            },
+          },
+        ],
+      });
+    } else {
+      // Fallback if Kakao SDK is not loaded
+      alert('카카오톡 공유 기능을 사용하려면 카카오 SDK가 필요합니다. 일반 공유 기능을 사용해주세요.');
     }
   };
 
@@ -184,13 +222,21 @@ export default function Results({ results, onRestart }: ResultsProps) {
       <Card className="mb-8">
         <CardContent className="p-8">
           <h3 className="text-xl font-bold text-slate-800 mb-6">결과 공유하기</h3>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-6 border-2 border-dashed border-slate-300 rounded-xl">
               <Share2 className="text-slate-400 text-3xl mb-4 mx-auto" />
-              <h4 className="font-semibold text-slate-800 mb-2">결과 공유</h4>
-              <p className="text-sm text-slate-600 mb-4">친구들과 함께 테스트해보세요</p>
+              <h4 className="font-semibold text-slate-800 mb-2">일반 공유</h4>
+              <p className="text-sm text-slate-600 mb-4">기본 공유 기능</p>
               <Button onClick={handleShare} className="bg-primary hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
                 공유하기
+              </Button>
+            </div>
+            <div className="text-center p-6 border-2 border-dashed border-yellow-300 rounded-xl bg-yellow-50">
+              <MessageCircle className="text-yellow-600 text-3xl mb-4 mx-auto" />
+              <h4 className="font-semibold text-slate-800 mb-2">카카오톡 공유</h4>
+              <p className="text-sm text-slate-600 mb-4">카카오톡으로 친구들에게</p>
+              <Button onClick={handleKakaoShare} className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg">
+                카톡 공유
               </Button>
             </div>
             <div className="text-center p-6 border-2 border-dashed border-slate-300 rounded-xl">
