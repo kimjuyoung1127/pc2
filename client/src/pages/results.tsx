@@ -59,7 +59,7 @@ export default function Results({ results, onRestart }: ResultsProps) {
       // Initialize if not already done
       if (!kakao.isInitialized()) {
         // Use a placeholder app key - user will need to replace with their own
-        kakao.init('YOUR_KAKAO_APP_KEY');
+        kakao.init('0bb79b68177f628a20a0cc84bdaf8e40');
       }
 
       kakao.Share.sendDefault({
